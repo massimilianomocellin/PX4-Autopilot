@@ -4,7 +4,7 @@
 # This script unifies running gazebo simulation for HITL and SITL
 # You can run multiple instances of the 'px4' binary, with the gazebo SITL simulation
 # This script assumes px4 is already built, with 'make px4_sitl_default gazebo'
-# You can also run HITL with -h flag 
+# You can also run HITL with -h flag
 # Generate world and/or model files with editable json -j [m (model), w (world), mw (model and world), or wm (world and model)]
 
 # The simulator in SITL is expected to send to TCP port 4560+i for i in [0, N-1]
@@ -58,12 +58,12 @@ function spawn_model() {
 		echo "starting instance $N in $(pwd)"
 		../bin/px4 -i $N -d "$build_path/etc" -w sitl_${SITL_MODEL_NAME} -s etc/init.d-posix/rcS >out.log 2>err.log &
 		python3 ${jinja_model_script} ${sitl_launch_command}
-		echo "Generating: ${jinja_model_script} ${sitl_launch_command}" 
+		echo "Generating: ${jinja_model_script} ${sitl_launch_command}"
 		echo "Spawning ${SITL_MODEL_NAME}"
-		gz model --spawn-file=/tmp/${SITL_MODEL_NAME}.sdf --model-name=${SITL_MODEL_NAME} -x 0.0 -y $((3*${N})) -z 0.2	
+		gz model --spawn-file=/tmp/${SITL_MODEL_NAME}.sdf --model-name=${SITL_MODEL_NAME} -x 0.0 -y $((3*${N})) -z 0.2	--verbose
 		popd &>/dev/null
 	fi
-	
+
 }
 
 if [ "$1" == "--help" ]; then
@@ -121,7 +121,7 @@ elif [ "$json_opts" == "m" ]; then
 	echo "JSON used for model generation"
 	mjson="1"
 	wjson="0"
-else 
+else
 	wjson="0"
 	mjson="0"
 fi
