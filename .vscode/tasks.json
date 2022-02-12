@@ -342,6 +342,7 @@
             "options": [
               "iris",
               "typhoon_h480",
+              "qav250",
               "plane",
               "plane_catapult",
               "plane_lidar",
