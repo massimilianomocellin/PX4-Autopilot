@@ -165,12 +165,12 @@ elif [ "$program" == "gazebo" ] && [ ! -n "$no_sim" ]; then
 		else
 			echo "Using: ${modelpath}/${model}/${model}.sdf"
 		fi
-
+		echo "Starting gzserver"
 		while gz model --verbose --spawn-file="${modelpath}/${model}/${model_name}.sdf" --model-name=${model} -x 1.01 -y 0.98 -z 0.83 2>&1 | grep -q "An instance of Gazebo is not running."; do
 			echo "gzserver not ready yet, trying again!"
 			sleep 5
 		done
-
+		echo "gzserver started"
 		if [[ -n "$HEADLESS" ]]; then
 			echo "not running gazebo gui"
 		else
